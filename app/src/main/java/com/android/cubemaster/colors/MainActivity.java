@@ -1,6 +1,8 @@
 package com.android.cubemaster.colors;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.pavelsikun.vintagechroma.ChromaDialog;
+import com.pavelsikun.vintagechroma.ChromaUtil;
+import com.pavelsikun.vintagechroma.IndicatorMode;
+import com.pavelsikun.vintagechroma.OnColorSelectedListener;
+import com.pavelsikun.vintagechroma.colormode.ColorMode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,9 +30,19 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(final View view) {
+                new ChromaDialog.Builder()
+                        .initialColor(Color.GREEN)
+                        .colorMode(ColorMode.RGB) // RGB, ARGB, HVS, CMYK, CMYK255, HSL
+                        .indicatorMode(IndicatorMode.HEX) //HEX or DECIMAL; Note that (HSV || HSL || CMYK) && IndicatorMode.HEX is a bad idea
+                        .onColorSelected(new OnColorSelectedListener() {
+                            @Override
+                            public void onColorSelected(@ColorInt int color) {
+                                Toast.makeText(view.getContext(), ChromaUtil.getFormattedColorString(color, false), Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .create()
+                        .show(getSupportFragmentManager(), "ChromaDialog");
             }
         });
     }
