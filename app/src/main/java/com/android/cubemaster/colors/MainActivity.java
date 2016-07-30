@@ -4,17 +4,22 @@ import android.app.WallpaperManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.pavelsikun.vintagechroma.ChromaDialog;
+import com.pavelsikun.vintagechroma.ChromaUtil;
 import com.pavelsikun.vintagechroma.IndicatorMode;
 import com.pavelsikun.vintagechroma.OnColorSelectedListener;
 import com.pavelsikun.vintagechroma.colormode.ColorMode;
@@ -41,15 +46,34 @@ public class MainActivity extends AppCompatActivity {
                         .onColorSelected(new OnColorSelectedListener() {
                             @Override
                             public void onColorSelected(@ColorInt int color) {
+                                String hexString = ChromaUtil.getFormattedColorString(color, false);
+
                                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(view.getContext());
-                                Drawable drawable = wallpaperManager.getDrawable();
-                                int width = drawable.getIntrinsicWidth();
-                                int height = drawable.getIntrinsicHeight();
+                                Display display = getWindowManager().getDefaultDisplay();
+                                Point point = new Point();
+                                display.getSize(point);
+                                int width = point.x;
+                                int height = point.y;
 
                                 Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                                 Canvas canvas = new Canvas(bitmap);
 
                                 canvas.drawRGB(Color.red(color), Color.green(color), Color.blue(color));
+
+//                                Paint paint = new Paint();
+//                                paint.setColor(Color.WHITE);
+//                                paint.setTextAlign(Paint.Align.CENTER);
+//
+//                                float testSize = 48f;
+//                                paint.setTextSize(testSize);
+//                                Rect textBounds = new Rect();
+//                                paint.getTextBounds(hexString, 0, hexString.length(), textBounds);
+//                                paint.setTextSize((int)(testSize * width / textBounds.width() * .618));
+//
+//                                int centerX = canvas.getWidth() / 2;
+//                                int centerY = (int) (canvas.getHeight() / 2 - (paint.descent() + paint.ascent()) / 2);
+//
+//                                canvas.drawText(hexString, centerX, centerY, paint);
 
                                 try {
                                     wallpaperManager.setBitmap(bitmap);
