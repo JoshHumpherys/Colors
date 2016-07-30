@@ -1,22 +1,25 @@
 package com.android.cubemaster.colors;
 
+import android.app.WallpaperManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.pavelsikun.vintagechroma.ChromaDialog;
-import com.pavelsikun.vintagechroma.ChromaUtil;
 import com.pavelsikun.vintagechroma.IndicatorMode;
 import com.pavelsikun.vintagechroma.OnColorSelectedListener;
 import com.pavelsikun.vintagechroma.colormode.ColorMode;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +41,21 @@ public class MainActivity extends AppCompatActivity {
                         .onColorSelected(new OnColorSelectedListener() {
                             @Override
                             public void onColorSelected(@ColorInt int color) {
-                                Toast.makeText(view.getContext(), ChromaUtil.getFormattedColorString(color, false), Toast.LENGTH_LONG).show();
+                                WallpaperManager wallpaperManager = WallpaperManager.getInstance(view.getContext());
+                                Drawable drawable = wallpaperManager.getDrawable();
+                                int width = drawable.getIntrinsicWidth();
+                                int height = drawable.getIntrinsicHeight();
+
+                                Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                                Canvas canvas = new Canvas(bitmap);
+
+                                canvas.drawRGB(Color.red(color), Color.green(color), Color.blue(color));
+
+                                try {
+                                    wallpaperManager.setBitmap(bitmap);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         })
                         .create()
