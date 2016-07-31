@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pref_color_mode_options">
+        <item>@string/pref_color_mode_label_argb</item>
+        <item>@string/pref_color_mode_label_rgb</item>
+        <item>@string/pref_color_mode_label_cmyk</item>
+        <item>@string/pref_color_mode_label_cmyk255</item>
+        <item>@string/pref_color_mode_label_hsv</item>
+        <item>@string/pref_color_mode_label_hsl</item>
+    </string-array>
+
+    <string-array name="pref_color_mode_values">
+        <item>@string/pref_color_mode_argb</item>
+        <item>@string/pref_color_mode_rgb</item>
+        <item>@string/pref_color_mode_cmyk</item>
+        <item>@string/pref_color_mode_cmyk255</item>
+        <item>@string/pref_color_mode_hsv</item>
+        <item>@string/pref_color_mode_hsl</item>
+    </string-array>
+
+    <string-array name="pref_indicator_mode_options">
+        <item>@string/pref_indicator_mode_label_hex</item>
+        <item>@string/pref_indicator_mode_label_decimal</item>
+    </string-array>
+
+    <string-array name="pref_indicator_mode_values">
+        <item>@string/pref_indicator_mode_hex</item>
+        <item>@string/pref_indicator_mode_decimal</item>
+    </string-array>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListPreference
+        android:title="@string/pref_color_mode_label"
+        android:key="@string/pref_color_mode_key"
+        android:defaultValue="@string/pref_color_mode_default"
+        android:entryValues="@array/pref_color_mode_values"
+        android:entries="@array/pref_color_mode_options" />
+
+    <ListPreference
+        android:title="@string/pref_indicator_mode_label"
+        android:key="@string/pref_indicator_mode_key"
+        android:defaultValue="@string/pref_indicator_mode_hex"
+        android:entryValues="@array/pref_indicator_mode_values"
+        android:entries="@array/pref_indicator_mode_options" />
+
+</PreferenceScreen>
